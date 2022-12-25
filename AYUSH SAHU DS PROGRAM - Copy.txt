@@ -1,0 +1,964 @@
+QUES(1) STACK USING ARRAY.
+
+#include<stdio.h>
+# define N 5
+int stack[N];
+int top=-1;// initialization
+void push(int x){
+if(top==N-1){
+printf("overflow");
+}
+else{
+top++;
+stack[top]=x;
+printf("pushed element is %d\n",x);
+}
+}
+void pop(){
+int item;
+if(top==-1){
+    printf("underflow\n");// check emptiness
+}
+else{
+item = stack[top];// important line remember
+top--;
+printf("pop value is %d\n",item);
+}
+}
+void peek()
+{
+if(top==-1){
+    printf("stack is empty");
+}
+else{
+    printf(" peek value is %d\n",stack[top]);
+}
+}
+void display(){
+int i;
+for(i=top;i>=0;i--){ 
+    printf("%d ",stack[i]);
+}
+} 
+void main(){
+ push(1);
+ push(2);
+ push(8);
+ pop();
+ peek();
+ display();
+}
+
+
+QUES(2)  STACK USING LINKLIST
+
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *link;
+};
+struct node *top=0;
+void push(int x)// push function declaration
+{
+struct node *newnode;
+newnode = (struct node*) malloc(sizeof(struct node));
+newnode-> data=x;
+newnode->link=top;
+top = newnode;
+printf("pushed element is %d \n ",newnode->data);
+}
+void display()// pop/deletion function declaration
+{
+struct node*temp;
+temp=top;
+if(top==0){
+    printf("stack is empty");
+}
+else{
+while(temp!=0){
+printf("%d ",temp->data);
+temp=temp->link;
+}
+}
+}
+void peek(){//peek function declaration
+if(top==0){
+printf("stack is empty");
+}
+else{
+    printf("top element is %d \n ",top->data);
+}
+}
+void pop(){//pop function declaration
+struct node*temp;
+temp=top;
+if(top==0){
+    printf("stack is empty");
+}
+else{
+printf("pop value is %d \n ",top->data);
+    //printf("%d",top->data);
+    top=top->link;
+    free(temp);   
+}
+}
+void main(){
+push(2);// calling push function
+push(4);
+push(5);
+pop();//calling pop function
+peek();//calling peek function
+display();//calling display function
+}
+
+
+QUES(3) QUEUE USING ARRAY
+
+
+
+#define N 5
+int queue[N];
+int front=-1,rear=-1;
+void enqueue(int x){
+if(rear == N-1)
+{
+    printf("overflow");
+}
+else if( front == -1 && rear == -1){
+front=rear=0;
+queue[rear]=x;
+}
+else{ 
+    rear++;
+    queue[rear]=x;
+    }
+}
+void dequeue(){
+if(front==-1&& rear==-1){
+    printf("underflow");
+}
+else if (front==rear){
+    front=rear=-1;
+}
+else{
+    printf("the deque element from the queue is %d",queue[front]);
+    front++;
+}
+}
+void display(){
+    int i;
+    if(front==-1&&rear==-1){
+        printf("empty queue");
+    }
+    else{
+        for(i=front;i<rear+1;i++){
+            printf("%d",queue[i]);
+        }
+    }
+}
+void peek(){
+    if (front==-1&&rear==-1)
+    {
+        printf("queue is empty");
+    }
+    else{
+        printf("%d",queue[front]);
+    }
+}
+
+
+
+QUES(4) implement addition and multiplication of two 2D array
+
+
+#include<stdio.h>
+void main()
+{
+    int a[3][3],b[3][3],c[3][3],i,j,k;
+    printf("enter the elements of matrix A");
+    for(i=0;i<3;i++)
+    {
+        for(j=0;j<3;j++)
+        {
+            scanf("%d",&a[i][j]);
+        }
+    }
+    printf("enter the elements of matrix B");
+    for(i=0;i<3;i++)
+    {
+        for(j=0;j<3;j++)
+        {
+            scanf("%d",&b[i][j]);
+        }
+    }
+    printf("multiplication of two matrix");
+    for(i=0;i<3;i++)
+    {
+        for (j=0;j<3;j++)
+        {
+            c[i][j]=0;
+            for(k=0;k<3;k++)
+            {
+        c[i][j] =c[i][j]+a[i][k]*b[k][j];
+            }
+            printf("%d",c[i][j]);
+        }
+        printf("/n");
+    }
+}
+
+QUES(5) BINARY SEARCH 
+
+#include<stdio.h>
+
+int main(){
+    int a[50],n;
+    printf("Enter the value of n\n");
+    scanf("%d",&n);
+    printf("Enter the elements of an array a\n");
+    for(int i=0;i<n;i++){
+        scanf("%d",&a[i]);
+    }
+    int num;
+    printf("Enter the elment want to search\n");
+    scanf("%d",&num);
+
+    int lw=0;
+    int up=n-1;
+    int count = 0;
+    int mid = (lw+up)/2;
+    while(lw<=up){
+      
+      if(num == a[mid]){
+        count++;
+        break;
+        }
+
+      if(num>a[mid])
+        lw = mid+1;
+
+      else
+       up = mid-1;
+
+       mid = (lw+up)/2;
+   }
+    if(count==0)
+    printf("Element is not founded");
+
+    else
+    printf("Element is founded");
+}
+
+QUES(6)  SINGLY LINKLIST PROGRAM IN C.
+
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct nodetype
+{
+    int info;
+    struct nodetype*next;
+}node;
+node*temp;
+node*ptr;
+node*start=NULL;
+void creat()
+{
+    int ch;
+    printf("enter any choice to con.and 1 to end\n");
+    scanf("%d",&ch);
+    while(ch!=1)
+    {
+    temp=(node*)malloc(sizeof(node));
+    if(temp==NULL)
+    {
+        printf("overflow condition");
+        return;
+    }
+    printf("enter the info\n");
+    scanf("%d",&temp->info);
+    temp->next=NULL;
+    if(start==NULL)
+    {
+        start=temp;
+        ptr=temp;
+    }
+    else{
+        ptr->next=temp;
+        ptr=temp;
+    }
+    printf("enter any no. to continue and 1 for end\n");
+    scanf("%d",&ch);
+    }
+}
+void display()
+    {
+        if(start==NULL)
+        {
+            printf("\nnothing to display\n");
+            return;
+        }
+        ptr=start;
+        printf("the entered info is\n");
+        while(ptr!=NULL)
+        {
+            printf("%d\n",ptr->info);
+            ptr=ptr->next;
+        }
+    }
+void insertbeg()
+{
+ temp=(node*)malloc(sizeof(node));
+ if(temp==NULL)
+ {
+    printf("overflow");
+    return;
+ }
+ printf("enter info\n");
+ scanf("%d",&temp->info);
+ temp->next=NULL;
+ if(start==NULL)
+ {
+    start=temp;
+ }
+ else{
+    temp->next=start;
+    start=temp;
+ }
+}
+void insertend()
+{ ptr=temp;
+temp=(node*)malloc(sizeof(node));
+ if(temp==NULL)
+ {
+    printf("overflow");
+    return;
+ }
+ printf("enter info\n");
+ scanf("%d",&temp->info);
+ temp->next=NULL;
+ if(start==NULL)
+ {
+    start=temp;
+    
+ }
+ else{
+    while(ptr->next!=NULL)
+    {
+    ptr=ptr->next;
+ }
+ ptr->next=temp;
+}
+}
+void insertpos()
+{ 
+    int pos;
+ptr=temp;
+temp=(node*)malloc(sizeof(node));
+ if(temp==NULL)
+ {
+    printf("overflow");
+    return;
+ }
+ printf("enter info\n");
+ scanf("%d",&temp->info);
+ temp->next=NULL;
+ printf("enter the choice");
+ scanf("%d",&pos);
+ if(pos==1)
+ {
+    temp->next=start;
+    start=temp;
+    
+ }
+ else{
+    ptr=start;
+   for(int i=1;i<pos-1;i++)
+    {
+        ptr=ptr->next;
+        if(ptr=NULL)
+        {
+            printf("position not found");
+        }
+ }
+ temp->next=ptr->next;
+ ptr->next=temp;
+ printf("insertion done sucessfully");
+}
+}
+void delbeg()
+{
+ptr=start;
+ if(start==NULL)
+ {
+  printf("nothing to delet");
+  return;  
+ }
+ else if(start->next==NULL)
+ {
+    start=NULL;
+    printf("the deleted element is-%d",ptr->info);
+    free(ptr);
+ }
+ else
+ {
+    start=start->next;
+    printf("the deleted element is%d",ptr->info);
+    free(ptr);
+}
+}
+void delend()
+{ node*prev;
+    ptr=start;
+ if(start==NULL)
+ {
+  printf("nothing to delet");
+  return;  
+ }
+ else if(start->next==NULL)
+ {
+    start=NULL;
+    printf("the deleted element is-%d",ptr->info);
+    free(ptr);
+ }
+ else
+ {
+    while(ptr->next!=NULL)
+ {
+    prev=ptr;
+    ptr=ptr->next;
+  }
+   printf("the deleted element is%d",ptr->info);
+   prev->next=NULL;
+    free(ptr);
+    }
+}
+void delpos()
+{
+    node*prev;
+  int pos;
+ ptr=start;
+ printf("enter the position from zero onward");
+ scanf("%d",&pos);
+ if(start==NULL)
+ {
+  printf("nothing to delet");
+  return;
+ }
+ else if(pos==1)
+ {
+    start=ptr->next;
+    ptr->next=NULL;
+    free(ptr);
+ }
+ else{
+   int i=1;
+ while(i<pos)
+{   prev=ptr;
+     ptr=ptr->next;
+    if(ptr==NULL)
+        {
+            printf("position not found");
+        }
+   i++;
+ }
+ prev->next=ptr->next;
+ printf("the deleted element is%d",ptr->info);
+ ptr->next=NULL;
+ free(ptr);
+ }
+}
+void main()
+{  int ch;
+do{
+    printf("\nenter 1 for creat,2 for display,3 for insertbeg,4 for insertend,5 for insertpos,6 for delbeg,7 for delend,8 for delpos,9 for exit\n");
+    scanf("%d",&ch);
+    switch(ch)
+    {
+        case 1:
+         creat();
+          break;
+        case 2:
+         display();
+          break;
+        case 3:
+         insertbeg();
+         break;
+        case 4:
+         insertend();
+         break;
+        case 5:
+        insertpos();
+        break;
+        case 6:
+        delbeg();
+        break;
+        case 7:
+        delend();
+        break;
+        case 8:
+        delpos();
+        break;
+        case 9:
+         printf("sucessfully exited");
+         return;
+         break;
+        default:
+        printf("enter vailed choice");
+        break;
+
+    }
+}while(ch!=0);
+}
+
+
+QUES(7) Doubly linklist program
+
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct nodetype
+{
+    int info;
+    struct nodetype*next;
+}node;
+node*temp;
+node*ptr;
+node*start=NULL;
+void creat()// creating a linklist
+{
+    int ch;
+    printf("enter any choice to con.and 1 to end\n");
+    scanf("%d",&ch);
+    while(ch!=1)
+    {
+    temp=(node*)malloc(sizeof(node));
+    if(temp==NULL)
+    {
+        printf("overflow condition");
+        return;
+    }
+    printf("enter the info\n");
+    scanf("%d",&temp->info);
+    temp->next=NULL;
+    if(start==NULL)
+    {
+        start=temp;
+        ptr=temp;
+    }
+    else{
+        ptr->next=temp;
+        ptr=temp;
+    }
+    printf("enter any no. to continue and 1 for end\n");
+    scanf("%d",&ch);
+    }
+}
+void display() // declaration of display function 
+    {
+        if(start==NULL)
+        {
+            printf("\nnothing to display\n");
+            return;
+        }
+        ptr=start;
+        printf("the entered info is\n");
+        while(ptr!=NULL)
+        {
+            printf("%d\n",ptr->info);
+            ptr=ptr->next;
+        }
+    }
+void insertbeg() // insertion from beginnig
+{
+ temp=(node*)malloc(sizeof(node));
+ if(temp==NULL)
+ {
+    printf("overflow");
+    return;
+ }
+ printf("enter info\n");
+ scanf("%d",&temp->info);
+ temp->next=NULL;
+ if(start==NULL)
+ {
+    start=temp;
+ }
+ else{
+    temp->next=start;
+    start=temp;
+ }
+}
+void insertend() // insertion from end in linklist
+{ ptr=temp;
+temp=(node*)malloc(sizeof(node));
+ if(temp==NULL)
+ {
+    printf("overflow");
+    return;
+ }
+ printf("enter info\n");
+ scanf("%d",&temp->info);
+ temp->next=NULL;
+ if(start==NULL)
+ {
+    start=temp;
+    
+ }
+ else{
+    while(ptr->next!=NULL)
+    {
+    ptr=ptr->next;
+ }
+ ptr->next=temp;
+}
+}
+void insertpos() // insertion from given position
+{ 
+    int pos;
+ptr=temp;
+temp=(node*)malloc(sizeof(node));
+ if(temp==NULL)
+ {
+    printf("overflow");
+    return;
+ }
+ printf("enter info\n");
+ scanf("%d",&temp->info);
+ temp->next=NULL;
+ printf("enter the choice");
+ scanf("%d",&pos);
+ if(pos==1)
+ {
+    temp->next=start;
+    start=temp;
+    
+ }
+ else{
+    ptr=start;
+   for(int i=1;i<pos-1;i++)
+    {
+        ptr=ptr->next;
+        if(ptr=NULL)
+        {
+            printf("position not found");
+        }
+ }
+ temp->next=ptr->next;
+ ptr->next=temp;
+ printf("insertion done sucessfully");
+}
+}
+void delbeg() // deletion from beginning in linklist
+{
+ptr=start;
+ if(start==NULL)
+ {
+  printf("nothing to delet");
+  return;  
+ }
+ else if(start->next==NULL)
+ {
+    start=NULL;
+    printf("the deleted element is-%d",ptr->info);
+    free(ptr);
+ }
+ else
+ {
+    start=start->next;
+    printf("the deleted element is%d",ptr->info);
+    free(ptr);
+}
+}
+void delend() // deletion from end of linklist
+{ node*prev;
+    ptr=start;
+ if(start==NULL)
+ {
+  printf("nothing to delet");
+  return;  
+ }
+ else if(start->next==NULL)
+ {
+    start=NULL;
+    printf("the deleted element is-%d",ptr->info);
+    free(ptr);
+ }
+ else
+ {
+    while(ptr->next!=NULL)
+ {
+    prev=ptr;
+    ptr=ptr->next;
+  }
+   printf("the deleted element is%d",ptr->info);
+   prev->next=NULL;
+    free(ptr);
+    }
+}
+void delpos() // deletion from given position
+{
+    node*prev;
+  int pos;
+ ptr=start;
+ printf("enter the position from zero onward");
+ scanf("%d",&pos);
+ if(start==NULL)
+ {
+  printf("nothing to delet");
+  return;
+ }
+ else if(pos==1)
+ {
+    start=ptr->next;
+    ptr->next=NULL;
+    free(ptr);
+ }
+ else{
+   int i=1;
+ while(i<pos)
+{   prev=ptr;
+     ptr=ptr->next;
+    if(ptr==NULL)
+        {
+            printf("position not found");
+        }
+   i++;
+ }
+ prev->next=ptr->next;
+ printf("the deleted element is%d",ptr->info);
+ ptr->next=NULL;
+ free(ptr);
+ }
+}
+void main()
+{  int ch;
+do{
+    printf("\nenter 1 for creat,2 for display,3 for insertbeg,4 for insertend,5 for insertpos,6 for delbeg,7 for delend,8 for delpos,9 for exit\n");
+    scanf("%d",&ch);
+    switch(ch)
+    {
+        case 1:
+         creat();
+          break;
+        case 2:
+         display();
+          break;
+        case 3:
+         insertbeg();
+         break;
+        case 4:
+         insertend();
+         break;
+        case 5:
+        insertpos();
+        break;
+        case 6:
+        delbeg();
+        break;
+        case 7:
+        delend();
+        break;
+        case 8:
+        delpos();
+        break;
+        case 9:
+         printf("sucessfully exited");
+         return;
+         break;
+        default:
+        printf("enter vailed choice");
+        break;
+
+    }
+}while(ch!=0);
+}
+
+QUES(8) insertion program using c
+
+
+#include <stdio.h>
+
+void insertionSort(int arr[], int n)
+{
+    for (int itr = 1; itr <= n - 1; itr++)
+    {
+        for (int j = itr -1; j>=0; j--)
+        {
+            if (arr[j] > arr[j+1])
+            {
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+            else{
+                break;
+            }
+        }
+    }
+
+    printf("The sorted array will be\n");
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+}
+void main()
+{
+    int a[50], n;
+    printf("Enter the value of n\n");
+    scanf("%d", &n);
+    printf("Enter the elements of array\n");
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%d", &a[i]);
+    }
+    insertionSort(a, n);
+}
+
+QUES(9) Linear search program
+
+#include<stdio.h>
+
+int main(){
+    int a[50];
+    int n,m;
+    printf("Enter the value of n\n");
+    scanf("%d",&n);
+    printf("Enter the elements of array a\n");
+    for(int i=0;i<n;i++){
+        scanf("%d",&a[i]);
+    }
+    printf("Enter the element want to search\n");
+    scanf("%d",&m);
+    int count = 0;
+    for(int i=0;i<n;i++){
+        if(a[i]==m)
+        count++;
+        break;
+    }
+    if(count >0)
+    printf("The element is found");
+
+    else
+    printf("The element is not found");
+}
+
+QUES(10) QUEUE USING LINKLIST
+
+#include <stdio.h>
+#include <stdlib.h>
+struct node{
+   int info;
+   struct node *ptr;
+}*front,*rear,*temp,*front1;
+int frontelement();
+void enq(int data);
+void deq();
+void display();
+void create();
+int count = 0;
+void main(){
+   int no, ch, e;
+   printf("
+ 1 - Enqueue");
+   printf("
+ 2 - Dequeue");
+   printf("
+ 3 - Display");
+   printf("
+ 4 - Exit");
+   printf("
+ 5-front");
+   create();
+   while (1){
+      printf("
+ Enter choice : ");
+      scanf("%d", &ch);
+      switch (ch){
+         case 1:
+            printf("Enter data : ");
+         scanf("%d", &no);
+         enq(no);
+         break;
+         case 2:
+            deq();
+         break;
+         case 3:
+            display();
+         break;
+         case 4:
+            exit(0);
+         break;
+         case 5:
+            e = frontelement();
+         if (e != 0)
+            printf("Front element : %d", e);
+         else
+            printf("
+ No front element in Queue");
+         break;
+         default:
+         printf("Wrong choice, Try again ");
+         break;
+      }
+   }
+}
+void enq(int data){
+   if (rear == NULL){
+      rear = (struct node *)malloc(1*sizeof(struct node));
+      rear->ptr = NULL;
+      rear->info = data;
+      front = rear;
+   }else{
+      temp=(struct node *)malloc(1*sizeof(struct node));
+      rear->ptr = temp;
+      temp->info = data;
+      temp->ptr = NULL;
+      rear = temp;
+   }
+   count++;
+}
+void display(){
+   front1 = front;
+   if ((front1 == NULL) && (rear == NULL)){
+      printf("Queue is empty");
+      return;
+   }
+   while (front1 != rear){
+      printf("%d ", front1->info);
+      front1 = front1->ptr;
+   }
+   if (front1 == rear)
+      printf("%d", front1->info);
+   }
+   void deq(){
+      front1 = front;
+      if (front1 == NULL){
+         printf("
+ Error");
+         return;
+      }
+      else
+      if (front1->ptr != NULL){
+         front1 = front1->ptr;
+         printf("
+ Dequeued value : %d", front->info);
+         free(front);
+         front = front1;
+      }else{
+         printf("
+ Dequeued value : %d", front->info);
+         free(front);
+         front = NULL;
+      rear = NULL;
+   }
+   count--;
+}
+int frontelement(){
+   if ((front != NULL) && (rear != NULL))
+      return(front->info);
+   else
+      return 0;
+}
